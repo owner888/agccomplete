@@ -28,6 +28,37 @@
 if exists('g:loaded_agccomplete')
   finish
 endif
+
 let g:loaded_agccomplete = 1
 
-echomsg "hello AGC"
+let s:disable_agccomplete = 1
+
+let s:AgcComplete = {}
+
+command! -nargs=0 AgcCompleteEnable call s:AgcComplete.Enable()
+command! -nargs=0 AgcCompleteDisable call s:AgcComplete.Disable()
+command! -nargs=0 AgcCompleteToggle call s:AgcComplete.Toggle()
+
+" Complete 开关
+function! s:AgcComplete.Toggle()"{{{
+    echomsg "AgcComplete.Toggle()"
+    if s:disable_agccomplete
+        let s:disable_agccomplete = 0
+        call s:AgcComplete.Enable()
+    else
+        let s:disable_agccomplete = 1
+        call s:AgcComplete.Disable()
+    endif
+endfunction"}}}
+
+" Complete 打开
+function! s:AgcComplete.Enable()"{{{
+    echomsg "AgcComplete.Enable()"
+endfunction"}}}
+
+" Complete 关闭
+function! s:AgcComplete.Disable()"{{{
+    echomsg "AgcComplete.Disable()"
+endfunction"}}}
+
+" vim: foldmethod=marker
