@@ -22,10 +22,12 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-" Version: 1.0.0, for Vim 8.0
+" Version: 1.0.0, for Vim 8.x
 "=============================================================================
 
 if exists('g:loaded_agccomplete')
-    finish
-  endif
-  let g:loaded_agccomplete = 1
+  finish
+endif
+let g:loaded_agccomplete = 1
+
+echomsg "hello AGC"
