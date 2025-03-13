@@ -26,20 +26,31 @@ endfunction
 
 " 主函数：创建并显示菜单
 function! ShowMenu()
-    " 获取光标位置
-    let l:cursor_pos = getpos('.')
-    let l:line = l:cursor_pos[1]  " 当前行号
-    let l:col = l:cursor_pos[2]   " 当前列号
+    " 获取窗口尺寸
+    let l:win_width = winwidth(0)
+    let l:win_height = winheight(0)
+    
+    " 计算菜单尺寸
+    let l:menu_width = 0
+    for l:item in s:menu_items
+        let l:menu_width = max([l:menu_width, len(l:item) + 4])  " +4 for prefix and spaces
+    endfor
+    
+    let l:menu_height = len(s:menu_items)
+    
+    " 计算居中位置
+    let l:line = (l:win_height - l:menu_height) / 2
+    let l:col = (l:win_width - l:menu_width) / 2
 
     " 关闭已有窗口
     if s:winid != -1 && popup_getpos(s:winid).visible
         call popup_close(s:winid)
     endif
 
-    " 创建浮动窗口
+    " 创建浮动窗口，居中显示
     let s:winid = popup_create(s:menu_items, {
-        \ 'line': 10,
-        \ 'col': 20,
+        \ 'line': l:line,
+        \ 'col': l:col,
         \ 'border': [1, 1, 1, 1],
         \ 'filter': 'MenuFilter',
         \ 'callback': 'MenuCallback',
